@@ -9,7 +9,7 @@ if (isset($_REQUEST['action'])) {
 		$password = $_POST['password'];
 		$remember = isset($_POST['remember_me']) ? $_POST['remember_me'] : '';
 
-		$query = $db->prepare('SELECT * FROM auth WHERE username = ? AND password = ?');
+		$query = $db->prepare('SELECT * FROM user WHERE username = ? AND password = ?');
 		$query->bindParam(1, $username);
 		$query->bindParam(2, $password);
 		$query->execute();
@@ -31,6 +31,6 @@ if (isset($_REQUEST['action'])) {
 		session_start();
 		session_unset();
 		session_destroy();
-		header('location: http://localhost/=tiket');
+		header('location: http://localhost/t1k3t');
 	}
 }

@@ -1,8 +1,8 @@
 <?php 
 try {
-	$db_name = '_tiket';
+	$db_name = 'tiket';
 	$username = 'root';
-	$password = '';
+	$password = 'asd';
 	$db = new PDO('mysql:host=127.0.0.1;dbname='.$db_name, $username, $password);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
