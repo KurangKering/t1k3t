@@ -31,7 +31,11 @@ $pageLink = basename($_SERVER['PHP_SELF']) . '.php';
     <link href="assets/datatables/extensions/Responsive/css/responsive.bootstrap.css" rel="stylesheet">
     <link href="assets/datatables/extensions/FixedColumns/css/fixedColumns.bootstrap.min.css" rel="stylesheet">
 
-
+<style type="text/css">
+    .toolbar {
+    float: left;
+}
+</style>
     <!-- Custom CSS -->
     <link href="assets/sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
 
