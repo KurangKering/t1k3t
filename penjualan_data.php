@@ -13,6 +13,7 @@ require_once('config/session.php');
     <meta name="author" content="">
     <title>Menu Penjualan</title>
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/animate.css" rel="stylesheet">
     <link href="assets/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="assets/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="assets/datatables/extensions/Responsive/css/responsive.bootstrap.css" rel="stylesheet">
@@ -72,7 +73,7 @@ require_once('config/session.php');
         </nav>
         <div id="page-wrapper">
             <div class="container-fluid">
-            <!-- ======================================================= -->
+                <!-- ======================================================= -->
                 <div class="row">
                     <div class="col-lg-6">
                         <h3 class="page-header">Data Penjualan</h3>
@@ -185,6 +186,7 @@ require_once('config/session.php');
 <script src="assets/datatables/media/js/dataTables.bootstrap.min.js"></script>
 <script src="assets/datatables/extensions/Responsive/js/dataTables.responsive.js"></script>
 <script src="assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js"></script>
+<script src="assets/bootstrap-notifty/bootstrap-notify.min.js"></script>
 <script src="assets/sb-admin-2/dist/js/sb-admin-2.js"></script>
 <script>
     $(document).ready(function() {
@@ -201,5 +203,12 @@ require_once('config/session.php');
         $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
     });
 </script>
+<?php if(isset($_SESSION['success'])) {
+    echo $_SESSION['success'];
+    unset($_SESSION['success']);
+
+} 
+var_dump($_SESSION)
+?>
 </body>
 </html>

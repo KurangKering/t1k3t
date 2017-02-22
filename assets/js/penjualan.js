@@ -3,7 +3,7 @@
 
 function parseAngka(element) {
 	var hasil;
-	var result = element.match(/\d+/);
+	var result = element.match(/^[0-9]+([,.][0-9]+)?$/g);
 	if (!result) {
 		hasil = 0;
 	}
@@ -16,7 +16,7 @@ function parseAngka(element) {
 
 function Rumus(q, hpp, invoice, fee, persen) {
 
-	var nta = parseInt(hpp) * parseFloat(persen);
+	var nta = parseInt(parseInt(hpp) * parseFloat(persen));
 	var harga_jual = parseInt(hpp) + parseInt(nta);
 	var up_salling = parseInt(invoice) - parseInt(harga_jual);
 	var profit_1 = parseInt(nta) + parseInt(up_salling);
@@ -37,16 +37,64 @@ function setInformasi(nta, harga_jual, up_salling, profit_1, adm_fee, profit_2, 
 	
 }
 
+
+function setDeklarasi(q, hpp, invoice) {
+	var q = parseAngka(q);
+	var hpp = parseAngka(hpp);
+	var invoice = parseAngka(invoice);
+	var fee = parseAngka($('#fee').val());
+	var persen = parseFloat(parseAngka($('#persen').val()) / 100 );
+	Rumus(q, hpp, invoice, fee, persen);
+}
 $('#q, #hpp, #invoice').on('input', function() 
 {
-	var q = parseAngka($('#q').val());
-	var hpp = parseAngka($('#hpp').val());
-	var invoice = parseAngka($('#invoice').val());
-	var fee = parseAngka($('#fee').val());
-	var persen = parseFloat(parseAngka($('#persen').val()) / 100);
 
-	Rumus(q, hpp, invoice, fee, persen);
-
-	
+	var q = $('#q').val();
+	var hpp = $('#hpp').val();
+	var invoice = $('#invoice').val();
+	setDeklarasi(q, hpp, invoice)
 	
 });
+
+var data = [];
+$(function () {
+	$('#q, #hpp, #invoice').focusout(function () {
+		var text_val = $(this).val();
+		data.push(text_val);
+    }).focusout(); //trigger the focusout event manually
+
+	if (data.length == 3) {
+		var q = data[0];
+		var hpp = data[1];
+		var invoice = data[2];
+		setDeklarasi(q, hpp, invoice);
+	}
+});
+
+
+function showDuplicate() {
+	$.notify({
+	// options
+	message: 'Booking Code Sudah Ada Di Database' 
+},
+{
+	// settings
+	type: 'danger',
+	delay: 3000
+	
+});
+	
+}
+
+function showSuccess() {
+	$.notify({
+	// options
+	message: 'Berhasil Menambah Data Penjualan' 
+},
+{
+	// settings
+	type: 'success',
+	delay: 2000
+	
+});
+}
