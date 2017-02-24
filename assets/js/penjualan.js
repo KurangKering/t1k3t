@@ -1,6 +1,13 @@
+$('#tanggal').datepicker({
+	format: 'yyyy/mm/dd',
+	todayHighlight: true,
+});
+$(".readonly").on('keydown paste', function(e){
+	e.preventDefault();
+});
+
+
 //$(this).attr("id").match(/\d+/)
-
-
 function parseAngka(element) {
 	var hasil;
 	var result = element.match(/^[0-9]+([,.][0-9]+)?$/g);
@@ -12,10 +19,7 @@ function parseAngka(element) {
 	}
 	return hasil;
 }
-
-
 function Rumus(q, hpp, invoice, fee, persen) {
-
 	var nta = parseInt(parseInt(hpp) * parseFloat(persen));
 	var harga_jual = parseInt(hpp) + parseInt(nta);
 	var up_salling = parseInt(invoice) - parseInt(harga_jual);
@@ -25,7 +29,6 @@ function Rumus(q, hpp, invoice, fee, persen) {
 	var jumlah = parseInt(hpp) + parseInt(adm_fee);
 	setInformasi(nta, harga_jual, up_salling, profit_1, adm_fee, profit_2, jumlah);
 }
-
 function setInformasi(nta, harga_jual, up_salling, profit_1, adm_fee, profit_2, jumlah) {
 	$('#nta').val(nta);
 	$('#harga_jual').val(harga_jual);
@@ -34,10 +37,7 @@ function setInformasi(nta, harga_jual, up_salling, profit_1, adm_fee, profit_2, 
 	$('#adm_fee').val(adm_fee);
 	$('#profit_2').val(profit_2);
 	$('#jumlah').val(jumlah);
-	
 }
-
-
 function setDeklarasi(q, hpp, invoice) {
 	var q = parseAngka(q);
 	var hpp = parseAngka(hpp);
@@ -46,55 +46,38 @@ function setDeklarasi(q, hpp, invoice) {
 	var persen = parseFloat(parseAngka($('#persen').val()) / 100 );
 	Rumus(q, hpp, invoice, fee, persen);
 }
-$('#q, #hpp, #invoice').on('input', function() 
-{
-
+$(function() {
 	var q = $('#q').val();
 	var hpp = $('#hpp').val();
 	var invoice = $('#invoice').val();
-	setDeklarasi(q, hpp, invoice)
-	
+	setDeklarasi(q, hpp, invoice);
+	$('#q, #hpp, #invoice').on('input change paste keypress', function() 
+	{
+		q = $('#q').val();
+		hpp = $('#hpp').val();
+		invoice = $('#invoice').val();
+		setDeklarasi(q, hpp, invoice)
+	});
 });
-
-var data = [];
-$(function () {
-	$('#q, #hpp, #invoice').focusout(function () {
-		var text_val = $(this).val();
-		data.push(text_val);
-    }).focusout(); //trigger the focusout event manually
-
-	if (data.length == 3) {
-		var q = data[0];
-		var hpp = data[1];
-		var invoice = data[2];
-		setDeklarasi(q, hpp, invoice);
-	}
-});
-
-
 function showDuplicate() {
 	$.notify({
-	// options
-	message: 'Booking Code Sudah Ada Di Database' 
-},
-{
-	// settings
-	type: 'danger',
-	delay: 3000
-	
-});
-	
+		// options
+		message: 'Booking Code Sudah Ada Di Database' 
+	},
+	{
+		// settings
+		type: 'danger',
+		delay: 3000
+	});
 }
-
 function showSuccess() {
 	$.notify({
-	// options
-	message: 'Berhasil Menambah Data Penjualan' 
-},
-{
-	// settings
-	type: 'success',
-	delay: 2000
-	
-});
+		// options
+		message: 'Berhasil Menambah Data Penjualan' 
+	},
+	{
+		// settings
+		type: 'success',
+		delay: 2000
+	});
 }
