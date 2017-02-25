@@ -73,24 +73,29 @@ try {
                                     <td><?= $value['nama_tc']?></td>
                                     <td><?= $value['jumlah']?></td>
                                     <td class="text-center">
-                                        <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span>
+                                        <a href="penjualan_edit.php?booking_code=<?= $value['booking_code'] ?>"><p data-placement="top" data-toggle="tooltip" title="Edit">
+                                            <button class="btn btn-primary btn-xs">
+                                                <span class="glyphicon glyphicon-pencil"></span>
                                             </button>
                                         </p>
-                                    </td>
-                                    <td class="text-center">
-                                        <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button>
-                                        </p>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href=""><p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+</div>
 </div>
 </div>
 <?php include_once('layout/javascript.php') ?>

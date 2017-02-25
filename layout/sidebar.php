@@ -37,12 +37,12 @@
                             <a class="" href="penjualan_data.php"><i class="fa fa-dashboard fa-fw"></i> Penjualan</a>
                         </li>
                         <li >
-                            <a href="maskapai_data.php"><i class="fa fa-dashboard fa-fw"></i> Maskapai</a>
+                            <a href="master_data.php"><i class="fa fa-dashboard fa-fw"></i> Data Master</a>
                         </li>
                         <li >
-                            <a href="tc.php"><i class="fa fa-dashboard fa-fw"></i> TC</a>
-                        </li>
-                    </ul>
-                </div>
+                        <a href="konfigurasi.php"><i class="fa fa-dashboard fa-fw"></i> Konfigurasi</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>

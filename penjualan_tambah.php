@@ -1,36 +1,34 @@
 <?php 
 require_once('config/conn.php');
 require_once('config/session.php');
-$id_maskapai 	= '';
-$tanggal 		= '';
-$booking_code 	= '';
-$q 				= '';
-$hpp 			= '';
-$invoice 		= '';
-$id_tc 			= '';
+$id_maskapai     = '';
+$tanggal         = '';
+$booking_code    = '';
+$q               = '';
+$hpp             = '';
+$invoice         = '';
+$id_tc           = '';
 $maskapai_option = '';
-$tc_option		 = '';
-$konfig			 = '';
+$tc_option       = '';
+$konfig          = '';
 try {
 	$maskapai_option = $db->query("SELECT * FROM maskapai")->fetchAll();
-	$tc_option = $db->query("SELECT * FROM tc")->fetchAll();
-	$konfig = $db->query("SELECT * FROM konfig")->fetch();
+	$tc_option       = $db->query("SELECT * FROM tc")->fetchAll();
+	$konfig          = $db->query("SELECT * FROM konfig")->fetch();
 } catch (PDOException $e) {
 	echo $e->getMessage();
 	die();
 }
 $persen = $konfig['persen'] * 100;
-$fee = $konfig['fee'];
+$fee    = $konfig['fee'];
 if (isset($_POST['simpan'])) {
-//array(8) { ["maskapai"]=> string(8) "AIR ASIA" ["tanggal"]=> string(10) "02/15/2017" ["booking_code"]=> string(3) "123" ["q"]=> string(4) "1131" ["hpp"]=> string(2) "12" ["invoice"]=> string(1) "2" ["nama_tc"]=> string(6) "Meimei" ["simpan"]=> string(4) "Save" } 
-//
-	$id_maskapai = isset($_POST['maskapai']) ? $_POST['maskapai'] : '';
-	$tanggal = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
-	$booking_code = isset($_POST['booking_code']) ? $_POST['booking_code'] : '';
-	$q = isset($_POST['q']) ? $_POST['q'] : '';
-	$hpp = isset($_POST['hpp']) ? $_POST['hpp'] : '';
-	$invoice = isset($_POST['invoice']) ? $_POST['invoice'] : '';
-	$id_tc = isset($_POST['nama_tc']) ? $_POST['nama_tc'] : '';
+	$id_maskapai       = isset($_POST['maskapai']) ? $_POST['maskapai'] : '';
+	$tanggal           = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
+	$booking_code      = isset($_POST['booking_code']) ? $_POST['booking_code'] : '';
+	$q                 = isset($_POST['q']) ? $_POST['q'] : '';
+	$hpp               = isset($_POST['hpp']) ? $_POST['hpp'] : '';
+	$invoice           = isset($_POST['invoice']) ? $_POST['invoice'] : '';
+	$id_tc             = isset($_POST['nama_tc']) ? $_POST['nama_tc'] : '';
 	$duplicate_message = '';
 	try {
 		$query = $db->prepare("INSERT INTO penjualan(
@@ -52,7 +50,6 @@ if (isset($_POST['simpan'])) {
 		$query->bindParam(':invoice', $invoice);
 		$query->bindParam(':q', $q);
 		$query->execute();
-
 		$_SESSION['success'] = '<script type="text/javascript">';
 		$_SESSION['success'] .= '$.notify({message: "Berhasil Menambah Data Penjualan" },';
 		$_SESSION['success'] .= '{type: "success",delay: 2000});';
@@ -70,9 +67,8 @@ if (isset($_POST['simpan'])) {
 ?>
 <?php include_once('layout/header.php'); ?>
 <?php include_once('layout/sidebar.php'); ?>
-
 <div id="page-wrapper">
-	<div class="container-fluid">
+	<div class ="container-fluid">
 		<!-- /.row -->
 		<div class="row">
 			<div class="col-lg-12">
@@ -267,10 +263,9 @@ if (isset($_POST['simpan'])) {
 		</div>
 	</div>
 </div>
-
 <?php include_once('layout/javascript.php') ?>
-
 <script src="assets/js/penjualan.js"></script>
+<script>hitung()</script>
 <?php if(isset($_SESSION['error'])) {
 	echo $_SESSION['error'];
 	unset($_SESSION['error']);

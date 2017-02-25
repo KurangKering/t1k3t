@@ -29,4 +29,9 @@ require_once('config/session.php');
 </div>
 </div>
 <?php include_once('layout/javascript.php') ?>
+<?php if(isset($_SESSION['success'])) {
+    echo $_SESSION['success'];
+    unset($_SESSION['success']);
+} 
+?>
 <?php include_once('layout/footer.php'); ?>

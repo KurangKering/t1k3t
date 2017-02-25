@@ -9,7 +9,7 @@ require_once('config/session.php');
         <!-- ======================================================= -->
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="page-header">Dashboard</h3>
+                <h3 class="page-header">Data Master</h3>
             </div>
             <!-- <div class="col-lg-6">
                 <span class="text-primary">
@@ -29,4 +29,9 @@ require_once('config/session.php');
 </div>
 </div>
 <?php include_once('layout/javascript.php') ?>
+<?php if(isset($_SESSION['success'])) {
+    echo $_SESSION['success'];
+    unset($_SESSION['success']);
+} 
+?>
 <?php include_once('layout/footer.php'); ?>

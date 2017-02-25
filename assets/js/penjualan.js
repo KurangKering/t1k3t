@@ -6,8 +6,20 @@ $(".readonly").on('keydown paste', function(e){
 	e.preventDefault();
 });
 
+function hitung() {
+	var q = $('#q').val();
+	var hpp = $('#hpp').val();
+	var invoice = $('#invoice').val();
+	setDeklarasi(q, hpp, invoice);
+	$('#q, #hpp, #invoice').on('input change paste keypress', function() 
+	{
+		q = $('#q').val();
+		hpp = $('#hpp').val();
+		invoice = $('#invoice').val();
+		setDeklarasi(q, hpp, invoice)
+	});
+}
 
-//$(this).attr("id").match(/\d+/)
 function parseAngka(element) {
 	var hasil;
 	var result = element.match(/^[0-9]+([,.][0-9]+)?$/g);
@@ -46,19 +58,6 @@ function setDeklarasi(q, hpp, invoice) {
 	var persen = parseFloat(parseAngka($('#persen').val()) / 100 );
 	Rumus(q, hpp, invoice, fee, persen);
 }
-$(function() {
-	var q = $('#q').val();
-	var hpp = $('#hpp').val();
-	var invoice = $('#invoice').val();
-	setDeklarasi(q, hpp, invoice);
-	$('#q, #hpp, #invoice').on('input change paste keypress', function() 
-	{
-		q = $('#q').val();
-		hpp = $('#hpp').val();
-		invoice = $('#invoice').val();
-		setDeklarasi(q, hpp, invoice)
-	});
-});
 function showDuplicate() {
 	$.notify({
 		// options
