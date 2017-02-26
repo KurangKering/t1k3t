@@ -1,4 +1,4 @@
-var table = $('#dataTables-example').DataTable({
+var table_penjualan = $('#dataTables-example').DataTable({
 	"scrollX": true,
 	"order": [],
 	fixedColumns: {
@@ -7,20 +7,35 @@ var table = $('#dataTables-example').DataTable({
 	},
 	"dom": '<"toolbar">frtip'
 });
-$("div.toolbar").html('<span class="text-primary"><a href="penjualan_tambah.php"><button class="btn btn-primary btn-sm pull-right" id="showTransForm"><i class="fa fa-plus"></i> Tambah Penjualan</button></a></span>');
+$("div.toolbar").html('<span class="text-primary"><a href="penjualan_tambah.php"><button class="btn btn-primary btn-sm" id="showTransForm"><i class="fa fa-plus"></i> Tambah Penjualan</button></a></span>');
 
-function deletePenjualan( booking_code )
-{
-	var conf = confirm("Yakin Ingin Menghapus Data Penjualan ?");
-	if (conf == true) {
-		$.ajax({
-			dataType: 'json',
-			url : 'config/ajax_call.php',
-			type : 'post',
-			data: {booking_code:booking_code,type:"delete"},
-			success : function() {
-				table.ajax.reload();
+
+var table_maskapai = $('#table-maskapai').DataTable({
+	bFilter: false, 
+	bInfo: false,
+	"lengthChange": false,
+	"pagingType": "simple",
+	"fnDrawCallback": function ( oSettings ) {
+		/* Need to redo the counters if filtered or sorted */
+		if ( oSettings.bSorted || oSettings.bFiltered ) {
+			for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ ) {
+				this.fnUpdate( i+1, oSettings.aiDisplay[i], 0, false, false );
 			}
-		});
+		}
 	}
-}
+
+});
+var table_tc = $('#table-tc').DataTable({
+	bFilter: false, 
+	bInfo: false,
+	"lengthChange": false,
+	 "pagingType": "simple",
+	"fnDrawCallback": function ( oSettings ) {
+		/* Need to redo the counters if filtered or sorted */
+		if ( oSettings.bSorted || oSettings.bFiltered ) {
+			for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ ) {
+				this.fnUpdate( i+1, oSettings.aiDisplay[i], 0, false, false );
+			}
+		}
+	}
+});

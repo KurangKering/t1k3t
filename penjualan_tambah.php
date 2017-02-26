@@ -255,6 +255,7 @@ if (isset($_POST['simpan'])) {
 										</select>
 									</div>
 									<input type="submit" class="btn btn-default" name="simpan" value="Save">
+									<a href="penjualan_data.php"><button type="button" class="btn btn-default">Cancel</button></a>
 								</div>
 							</div>
 						</form>

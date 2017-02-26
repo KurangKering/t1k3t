@@ -69,7 +69,7 @@ if (isset($_POST['simpan'])) {
         $_SESSION['success'] .= '</script>';
         header('Location: penjualan_data.php');
     } catch (PDOException $e) {
-        
+
         if ($e->errorInfo[1] == 1062) {
             $_SESSION['error'] = '<script type="text/javascript">';
             $_SESSION['error'] .= '$.notify({message: "Booking Code Sudah Ada" },';
@@ -271,6 +271,7 @@ include_once('layout/sidebar.php');
                                         </select>
                                     </div>
                                     <input type="submit" class="btn btn-default" name="simpan" value="Save">
+                                    <a href="penjualan_data.php"><button type="button" class="btn btn-default">Cancel</button></a>
                                 </div>
                             </div>
                         </form>
