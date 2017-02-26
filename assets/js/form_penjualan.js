@@ -80,3 +80,4 @@ function showSuccess() {
 		delay: 2000
 	});
 }
+

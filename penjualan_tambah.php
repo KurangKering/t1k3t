@@ -265,7 +265,7 @@ if (isset($_POST['simpan'])) {
 	</div>
 </div>
 <?php include_once('layout/javascript.php') ?>
-<script src="assets/js/penjualan.js"></script>
+<script src="assets/js/form_penjualan.js"></script>
 <script>hitung()</script>
 <?php if(isset($_SESSION['error'])) {
 	echo $_SESSION['error'];

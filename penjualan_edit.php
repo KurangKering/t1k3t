@@ -1,8 +1,9 @@
 <?php 
 require_once('config/conn.php');
 require_once('config/session.php');
-$code = isset($_GET['booking_code']) ? $db->quote($_GET['booking_code']) : $db->quote('');
-$data_edit = $db->query("SELECT * FROM penjualan WHERE booking_code = $code ");
+$code = isset($_GET['booking_code']) ? $_GET['booking_code'] : '';
+$code_quote = $db->quote($code);
+$data_edit = $db->query("SELECT * FROM penjualan WHERE booking_code = $code_quote ");
 
 if (!$data_edit->rowCount() > 0) {
     echo 'Sorry';
@@ -50,7 +51,7 @@ if (isset($_POST['simpan'])) {
             invoice      = :invoice, 
             q            = :q, 
             fee      = :fee
-            WHERE booking_code = $code
+            WHERE booking_code = $code_quote
             ");
         $query->bindParam(':booking_code', $booking_code);
         $query->bindParam(':id_tc', $id_tc);
@@ -63,7 +64,7 @@ if (isset($_POST['simpan'])) {
         $query->bindParam(':fee', $fee);
         $query->execute();
         $_SESSION['success'] = '<script type="text/javascript">';
-        $_SESSION['success'] .= '$.notify({message: "Berhasil Merubah Data Penjualan" },';
+        $_SESSION['success'] .= '$.notify({message: "Berhasil Merubah Data Penjualan Booking Code '. $code . '" },';
         $_SESSION['success'] .= '{type: "success",delay: 2000});';
         $_SESSION['success'] .= '</script>';
         header('Location: penjualan_data.php');
@@ -280,7 +281,7 @@ include_once('layout/sidebar.php');
     </div>
 </div>
 <?php include_once('layout/javascript.php') ?>
-<script src="assets/js/penjualan.js"></script>
+<script src="assets/js/form_penjualan.js"></script>
 <script>hitung()</script>
 <?php if(isset($_SESSION['error'])) {
     echo $_SESSION['error'];

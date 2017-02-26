@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `konfig` (
   `fee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.konfig: ~0 rows (approximately)
+-- Dumping data for table tiket.konfig: ~1 rows (approximately)
 /*!40000 ALTER TABLE `konfig` DISABLE KEYS */;
 INSERT INTO `konfig` (`persen`, `fee`) VALUES
 	(0.0500, 10000);
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `maskapai` (
   PRIMARY KEY (`id_maskapai`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.maskapai: ~7 rows (approximately)
+-- Dumping data for table tiket.maskapai: ~6 rows (approximately)
 /*!40000 ALTER TABLE `maskapai` DISABLE KEYS */;
 INSERT INTO `maskapai` (`id_maskapai`, `nama`, `status`) VALUES
 	(1, 'AIR ASIA', 'ACTIVE'),

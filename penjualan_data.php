@@ -1,17 +1,30 @@
 <?php 
 require_once('config/conn.php');
 require_once('config/session.php');
-?>
-<?php 
 $penjualan = '';
 try {
-    $penjualan = $db->query("SELECT * FROM view_penjualan")->fetchAll();
+    $penjualan = $db->query("SELECT * FROM view_penjualan ORDER BY tanggal_insert DESC")->fetchAll();
 } catch (Exception $e) {
     echo $e->getMessage();
 }
-?>
-<?php include_once('layout/header.php'); ?>
-<?php include_once('layout/sidebar.php'); ?>
+if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+   $code = isset($_GET['booking_code']) ? $_GET['booking_code'] : '';
+try {
+    $query = $db->prepare("DELETE FROM penjualan WHERE booking_code = :booking_code");
+    $query->bindParam(':booking_code', $code);
+    $query->execute();
+    $_SESSION['success'] = '<script type="text/javascript">';
+    $_SESSION['success'] .= '$.notify({message: "Berhasil Menghapus Data Penjualan Booking Code ' . $code . '"},';
+    $_SESSION['success'] .= '{type: "success",delay: 2000});';
+    $_SESSION['success'] .= '</script>';
+    header('Location: penjualan_data.php');
+    exit;
+} catch (PDOException $e) {
+    $e->getMessage();
+}
+}
+include_once('layout/header.php'); 
+include_once('layout/sidebar.php'); ?>
 <div id="page-wrapper">
     <div class="container-fluid">
         <!-- ======================================================= -->
@@ -32,7 +45,7 @@ try {
                         <table width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                             
                                     <th>Booking Code</th>
                                     <th>Tanggal Issued</th>
                                     <th>Maskapai</th>
@@ -56,7 +69,7 @@ try {
                             <tbody>
                                 <?php foreach ($penjualan as $value): ?>
                                    <tr>
-                                    <td></td>
+                                  
                                     <td><?= $value['booking_code']?></td>
                                     <td><?= $value['tanggal']?></td>
                                     <td><?= $value['nama_maskapai']?></td>
@@ -74,28 +87,27 @@ try {
                                     <td><?= $value['nama_tc']?></td>
                                     <td><?= $value['jumlah']?></td>
                                     <td class="text-center">
-                                        <a href="penjualan_edit.php?booking_code=<?= $value['booking_code'] ?>"><p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <button class="btn btn-primary btn-xs">
+                                        <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                            <a href="penjualan_edit.php?booking_code=<?= $value['booking_code'] ?>"><button class="btn btn-primary btn-xs">
                                                 <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
+                                            </button></a>
                                         </p>
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    <a href=""><p data-placement="top" data-toggle="tooltip" title="Delete">
-                                        <button class="btn btn-danger btn-xs">
+                                    </td>
+                                    <td class="text-center">
+                                        <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        
+                                           <a onclick="return confirm('Apakah Yakin ingin menghapus data ini ?')" href="penjualan_data.php?action=delete&booking_code=<?= $value['booking_code']?>"> <button class="btn btn-danger btn-xs">
                                             <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
+                                        </button></a>
                                     </p>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 </div>
