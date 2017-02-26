@@ -7,6 +7,7 @@ $penjualan = '';
 try {
     $penjualan = $db->query("SELECT * FROM view_penjualan")->fetchAll();
 } catch (Exception $e) {
+    echo $e->getMessage();
 }
 ?>
 <?php include_once('layout/header.php'); ?>

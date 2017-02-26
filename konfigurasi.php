@@ -9,7 +9,7 @@ require_once('config/session.php');
         <!-- ======================================================= -->
         <div class="row">
             <div class="col-lg-6">
-                <h3 class="page-header">Dashboard</h3>
+                <h3 class="page-header">Konfigurasi</h3>
             </div>
             <!-- <div class="col-lg-6">
                 <span class="text-primary">

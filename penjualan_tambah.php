@@ -19,7 +19,7 @@ try {
 	echo $e->getMessage();
 	die();
 }
-$persen = $konfig['persen'] * 100;
+$persen = $konfig['persen'];
 $fee    = $konfig['fee'];
 if (isset($_POST['simpan'])) {
 	$id_maskapai       = isset($_POST['maskapai']) ? $_POST['maskapai'] : '';
@@ -29,7 +29,6 @@ if (isset($_POST['simpan'])) {
 	$hpp               = isset($_POST['hpp']) ? $_POST['hpp'] : '';
 	$invoice           = isset($_POST['invoice']) ? $_POST['invoice'] : '';
 	$id_tc             = isset($_POST['nama_tc']) ? $_POST['nama_tc'] : '';
-	$duplicate_message = '';
 	try {
 		$query = $db->prepare("INSERT INTO penjualan(
 			booking_code, 
@@ -40,8 +39,8 @@ if (isset($_POST['simpan'])) {
 			persen, 
 			invoice, 
 			q, 
-			adm_fee) 
-			VALUES(:booking_code, :id_tc, :id_maskapai, :tanggal, :hpp, (SELECT persen FROM konfig), :invoice, :q, (SELECT fee FROM konfig))");
+			fee) 
+			VALUES(:booking_code, :id_tc, :id_maskapai, :tanggal, :hpp, :persen, :invoice, :q, :fee)");
 		$query->bindParam(':booking_code', $booking_code);
 		$query->bindParam(':id_tc', $id_tc);
 		$query->bindParam(':id_maskapai', $id_maskapai);
@@ -49,6 +48,8 @@ if (isset($_POST['simpan'])) {
 		$query->bindParam(':hpp', $hpp);
 		$query->bindParam(':invoice', $invoice);
 		$query->bindParam(':q', $q);
+		$query->bindParam(':persen', $persen);
+		$query->bindParam(':fee', $fee);
 		$query->execute();
 		$_SESSION['success'] = '<script type="text/javascript">';
 		$_SESSION['success'] .= '$.notify({message: "Berhasil Menambah Data Penjualan" },';
@@ -91,7 +92,7 @@ if (isset($_POST['simpan'])) {
 										</label>
 										<div class="col-md-6">
 											<div class="input-group">	
-												<input value="<?= $persen ?>" id="persen" readonly="readonly" class="form-control col-md-6 col-xs-12" type="text">
+												<input value="<?= $persen * 100?>" id="persen" readonly="readonly" class="form-control col-md-6 col-xs-12" type="text">
 												<span class="input-group-addon">%</span>
 											</div>
 										</div>

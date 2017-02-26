@@ -3,10 +3,7 @@ require_once('config/conn.php');
 require_once('config/session.php');
 $code = isset($_GET['booking_code']) ? $db->quote($_GET['booking_code']) : $db->quote('');
 $data_edit = $db->query("SELECT * FROM penjualan WHERE booking_code = $code ");
-// if (!$data_edit = $db->query("SELECT booking_code FROM penjualan WHERE booking_code = $code ")->rowCount() > 0 ) {
-//    echo 'Sorry Not Allowed';
-//    die();
-// }
+
 if (!$data_edit->rowCount() > 0) {
     echo 'Sorry';
     die();
@@ -19,9 +16,10 @@ $q               = $result['q'];
 $hpp             = $result['hpp'];
 $invoice         = $result['invoice'];
 $id_tc           = $result['id_tc'];
-$maskapai_option = $result['id_maskapai'];
-$tc_option       = $result['id_tc'];
+$maskapai_option = '';
+$tc_option       = '';
 $konfig          = '';
+
 try {
     $maskapai_option = $db->query("SELECT * FROM maskapai")->fetchAll();
     $tc_option       = $db->query("SELECT * FROM tc")->fetchAll();
@@ -30,37 +28,39 @@ try {
     echo $e->getMessage();
     die();
 }
-$persen = $konfig['persen'] * 100;
+$persen = $konfig['persen'];
 $fee    = $konfig['fee'];
 if (isset($_POST['simpan'])) {
-    
-    $id_maskapai       = isset($_POST['maskapai']) ? $_POST['maskapai'] : '';
-    $tanggal           = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
-    $booking_code      = isset($_POST['booking_code']) ? $_POST['booking_code'] : '';
-    $q                 = isset($_POST['q']) ? $_POST['q'] : '';
-    $hpp               = isset($_POST['hpp']) ? $_POST['hpp'] : '';
-    $invoice           = isset($_POST['invoice']) ? $_POST['invoice'] : '';
-    $id_tc             = isset($_POST['nama_tc']) ? $_POST['nama_tc'] : '';
-    $duplicate_message = '';
+
+    $id_maskapai  = isset($_POST['maskapai']) ? $_POST['maskapai'] : '';
+    $tanggal      = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';      
+    $booking_code = isset($_POST['booking_code']) ? $_POST['booking_code'] : '';
+    $q            = isset($_POST['q']) ? $_POST['q'] : '';
+    $hpp          = isset($_POST['hpp']) ? $_POST['hpp'] : '';
+    $invoice      = isset($_POST['invoice']) ? $_POST['invoice'] : '';
+    $id_tc        = isset($_POST['nama_tc']) ? $_POST['nama_tc'] : '';
     try {
-        $query = $db->prepare("INSERT INTO penjualan(
-            booking_code, 
-            id_tc,
-            id_maskapai, 
-            tanggal, 
-            hpp, 
-            persen, 
-            invoice, 
-            q, 
-            adm_fee) 
-            VALUES(:booking_code, :id_tc, :id_maskapai, :tanggal, :hpp, (SELECT persen FROM konfig), :invoice, :q, (SELECT fee FROM konfig))");
+        $query = $db->prepare("UPDATE penjualan SET
+            booking_code = :booking_code, 
+            id_tc        = :id_tc,
+            id_maskapai  = :id_maskapai, 
+            tanggal      = :tanggal, 
+            hpp          = :hpp, 
+            persen       = :persen, 
+            invoice      = :invoice, 
+            q            = :q, 
+            fee      = :fee
+            WHERE booking_code = $code
+            ");
         $query->bindParam(':booking_code', $booking_code);
         $query->bindParam(':id_tc', $id_tc);
         $query->bindParam(':id_maskapai', $id_maskapai);
         $query->bindParam(':tanggal', $tanggal);
         $query->bindParam(':hpp', $hpp);
+        $query->bindParam(':persen', $persen);
         $query->bindParam(':invoice', $invoice);
         $query->bindParam(':q', $q);
+        $query->bindParam(':fee', $fee);
         $query->execute();
         $_SESSION['success'] = '<script type="text/javascript">';
         $_SESSION['success'] .= '$.notify({message: "Berhasil Merubah Data Penjualan" },';
@@ -68,23 +68,27 @@ if (isset($_POST['simpan'])) {
         $_SESSION['success'] .= '</script>';
         header('Location: penjualan_data.php');
     } catch (PDOException $e) {
+        
         if ($e->errorInfo[1] == 1062) {
             $_SESSION['error'] = '<script type="text/javascript">';
             $_SESSION['error'] .= '$.notify({message: "Booking Code Sudah Ada" },';
             $_SESSION['error'] .= '{type: "danger",delay: 3000});';
             $_SESSION['error'] .= '</script>';
         }
+        else {
+            $e->getMessage();
+        }
     }
 }
+include_once('layout/header.php');
+include_once('layout/sidebar.php');
 ?>
-<?php include_once('layout/header.php'); ?>
-<?php include_once('layout/sidebar.php'); ?>
 <div id="page-wrapper">
     <div class ="container-fluid">
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Edit Penjualan</h3>
+                <h3 class="page-header">Edit Penjualan : <?= $code ?></h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -103,7 +107,7 @@ if (isset($_POST['simpan'])) {
                                         </label>
                                         <div class="col-md-6">
                                             <div class="input-group">   
-                                                <input value="<?= $persen ?>" id="persen" readonly="readonly" class="form-control col-md-6 col-xs-12" type="text">
+                                                <input value="<?= $persen * 100 ?>" id="persen" readonly="readonly" class="form-control col-md-6 col-xs-12" type="text">
                                                 <span class="input-group-addon">%</span>
                                             </div>
                                         </div>
