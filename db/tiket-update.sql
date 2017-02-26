@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `konfig` (
   `fee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.konfig: ~1 rows (approximately)
+-- Dumping data for table tiket.konfig: ~0 rows (approximately)
 /*!40000 ALTER TABLE `konfig` DISABLE KEYS */;
 INSERT INTO `konfig` (`persen`, `fee`) VALUES
 	(0.0500, 10000);
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `maskapai` (
   PRIMARY KEY (`id_maskapai`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.maskapai: ~6 rows (approximately)
+-- Dumping data for table tiket.maskapai: ~7 rows (approximately)
 /*!40000 ALTER TABLE `maskapai` DISABLE KEYS */;
 INSERT INTO `maskapai` (`id_maskapai`, `nama`, `status`) VALUES
 	(1, 'AIR ASIA', 'ACTIVE'),
@@ -62,14 +62,13 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
   PRIMARY KEY (`booking_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.penjualan: ~6 rows (approximately)
+-- Dumping data for table tiket.penjualan: ~5 rows (approximately)
 /*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
 INSERT INTO `penjualan` (`booking_code`, `id_tc`, `id_maskapai`, `tanggal`, `hpp`, `persen`, `invoice`, `q`, `fee`, `tanggal_insert`) VALUES
 	('1', 1, 4, '2017-02-12', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:14:25'),
 	('12312', 1, 1, '2017-02-14', 2, 0.0500, 2, 2, 10000, '2017-02-26 18:17:28'),
 	('232', 1, 1, '2017-02-28', 1, 0.0500, 1, 2, 10000, '2017-02-26 18:16:55'),
-	('232232', 1, 1, '2017-02-17', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:21:00'),
-	('442', 1, 5, '2017-02-14', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:14:25'),
+	('232232', 1, 2, '2017-02-17', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:21:00'),
 	('993', 1, 1, '2017-02-14', 1, 0.0500, 1, 2, 10000, '2017-02-26 18:14:25');
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 
