@@ -47,8 +47,8 @@ include_once('layout/sidebar.php'); ?>
                                 <tr>
                              
                                     <th>Booking Code</th>
-                                    <th>Tanggal Issued</th>
                                     <th>Maskapai</th>
+                                    <th>Tanggal Issued</th>
                                     <th>Q</th>
                                     <th>HPP/NTA</th>
                                     <th>Percent</th>
@@ -71,8 +71,8 @@ include_once('layout/sidebar.php'); ?>
                                    <tr>
                                   
                                     <td><?= $value['booking_code']?></td>
-                                    <td><?= $value['tanggal']?></td>
                                     <td><?= $value['nama_maskapai']?></td>
+                                    <td><?= $value['tanggal']?></td>
                                     <td><?= $value['q']?></td>
                                     <td><?= $value['hpp']?></td>
                                     <td><?= $value['persen'] * 100 . '%'?></td>

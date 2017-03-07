@@ -25,77 +25,85 @@ include_once('layout/sidebar.php'); ?>
             </div> -->
         </div>
         <div class="row">
-            <div class="col-lg-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <p>Data Maskapai</p>
+           <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                 <ul class="nav nav-tabs">
+                     <li class="active"><a href="#home-pills" data-toggle="tab">Data Maskapai</a>
+                     </li>
+                     <li><a href="#profile-pills" data-toggle="tab">Data TC</a>
+                     </li>
+                 </ul>
+             </div>
+             <!-- /.panel-heading -->
+             <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="home-pills">
+                        <div class="row">
+                            <div class="col-lg-12 col-xs-12">
+                                <!-- <span class="text-primary"><a href="penjualan_tambah.php"><button class="btn btn-primary btn-sm " id="showTransForm"><i class="fa fa-plus"></i> Tambah Maskapai</button></a></span> -->
+                                <table width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table-maskapai">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Maskapai</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php for ($i=0; $i < 20; $i++) {  ?>
+                                        <?php foreach ($maskapai as $value): ?>
+                                            <tr>
+                                                <td></td>
+                                                <td><?= $value['nama'] ?></td>
+                                                <td><?= strtolower($value['status']) ?></td>
+                                                <td>Edit | Hapus </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php  }?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <span class="text-primary"><a href="penjualan_tambah.php"><button class="btn btn-primary btn-sm " id="showTransForm"><i class="fa fa-plus"></i> Tambah Maskapai</button></a></span>
-                        <table width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table-maskapai">
-
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Maskapai</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            <?php for ($i=0; $i < 20; $i++) {  ?>
-                              
-                            
-                                <?php foreach ($maskapai as $value): ?>
+                    <div class="tab-pane fade" id="profile-pills">
+                      <div class="row">
+                          <div class="col-lg-12 col-xs-12">
+                            <table width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table-tc">
+                                <thead>
                                     <tr>
-                                        <td></td>
-                                        <td><?= $value['nama'] ?></td>
-                                        <td><?= $value['status'] ?></td>
-                                        <td>Edit | Hapus </td>
+                                        <th>No</th>
+                                        <th>Nama TC</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                <?php endforeach ?>
-
-                                <?php  }?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <p>Data TC</p>
-                    </div>
-                    <div class="panel-body">
-                        <span class="text-primary"><a href="penjualan_tambah.php"><button class="btn btn-primary btn-sm " id="showTransForm"><i class="fa fa-plus"></i> Tambah TC</button></a></span>
-                        <table width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table-tc">
-
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama TC</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <?php foreach ($tc as $value): ?>
-                                    <tr>
-                                        <td></td>
-                                        <td><?= $value['nama_tc'] ?></td>
-                                        <td><?= $value['status'] ?></td>
-                                        <td>Edit | Hapus </td>
-                                    </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($tc as $value): ?>
+                                        <tr>
+                                            <td></td>
+                                            <td><?= $value['nama_tc'] ?></td>
+                                            <td><?= $value['status'] ?></td>
+                                            <td>Edit | Hapus </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /.panel-body -->
     </div>
+    <!-- /.panel -->
+</div>
+<!-- /.col-lg-6 -->
+</div>
+<div class="row">
+</div>
+</div>
 </div>
 <?php include_once('layout/javascript.php') ?>
 <?php if(isset($_SESSION['success'])) {

@@ -65,11 +65,10 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
 -- Dumping data for table tiket.penjualan: ~5 rows (approximately)
 /*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
 INSERT INTO `penjualan` (`booking_code`, `id_tc`, `id_maskapai`, `tanggal`, `hpp`, `persen`, `invoice`, `q`, `fee`, `tanggal_insert`) VALUES
-	('1', 1, 4, '2017-02-12', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:14:25'),
 	('12312', 1, 1, '2017-02-14', 2, 0.0500, 2, 2, 10000, '2017-02-26 18:17:28'),
 	('232', 1, 1, '2017-02-28', 1, 0.0500, 1, 2, 10000, '2017-02-26 18:16:55'),
 	('232232', 1, 2, '2017-02-17', 1, 0.0500, 1, 1, 10000, '2017-02-26 18:21:00'),
-	('993', 1, 1, '2017-02-14', 1, 0.0500, 1, 2, 10000, '2017-02-26 18:14:25');
+	('993', 1, 1, '2017-02-14', 10, 0.0500, 1, 2, 10000, '2017-02-26 18:14:25');
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.tc

@@ -22,8 +22,8 @@ $tc_option       = '';
 $konfig          = '';
 
 try {
-    $maskapai_option = $db->query("SELECT * FROM maskapai")->fetchAll();
-    $tc_option       = $db->query("SELECT * FROM tc")->fetchAll();
+    $maskapai_option = $db->query("SELECT * FROM maskapai WHERE status = 'active'")->fetchAll();
+    $tc_option       = $db->query("SELECT * FROM tc WHERE status = 'active'")->fetchAll();
     $konfig          = $db->query("SELECT * FROM konfig")->fetch();
 } catch (PDOException $e) {
     echo $e->getMessage();
